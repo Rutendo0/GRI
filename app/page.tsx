@@ -399,6 +399,10 @@ export default function HomePage() {
                       className="object-cover transition-transform duration-700 group-hover:scale-110"
                       sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1200px) 33vw, 400px"
                       quality={100}
+                      priority={index < 3} // Load the first 3 images with priority
+                      loading={index < 3 ? "eager" : "lazy"} // Eager loading for first 3 images
+                      priority={index < 3} // Load the first 3 images with priority
+                      loading={index < 3 ? "eager" : "lazy"} // Eager loading for first 3 images
                     />
                   </div>
 
