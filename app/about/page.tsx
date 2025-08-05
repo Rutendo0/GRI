@@ -165,7 +165,7 @@ export default function AboutPage() {
 
               {/* Right Column - Image */}
               <div className="relative">
-                <div className="relative h-96 rounded-lg overflow-hidden">
+                <div className="relative h-[500px] rounded-lg overflow-hidden">
                   <Image
                     src="/image3.jfif"
                     alt="African elephant"
@@ -329,7 +329,7 @@ export default function AboutPage() {
                 {/* Left Column - Images */}
                 <div className="grid grid-cols-2 gap-3">
                   {/* Top Left */}
-                  <div className="relative h-40 rounded-lg overflow-hidden">
+                  <div className="relative h-64 rounded-lg overflow-hidden">
                     <Image
                       src="/k1.jpg"
                       alt="African cityscape"
@@ -340,7 +340,7 @@ export default function AboutPage() {
                     />
                   </div>
                   {/* Top Right */}
-                  <div className="relative h-40 rounded-lg overflow-hidden">
+                  <div className="relative h-64 rounded-lg overflow-hidden">
                     <Image
                       src="/k2.jfif"
                       alt="Modern buildings"
@@ -351,7 +351,7 @@ export default function AboutPage() {
                     />
                   </div>
                   {/* Bottom Left */}
-                  <div className="relative h-40 rounded-lg overflow-hidden">
+                  <div className="relative h-64 rounded-lg overflow-hidden">
                     <Image
                       src="/k3.jpg"
                       alt="African wildlife"
@@ -362,7 +362,7 @@ export default function AboutPage() {
                     />
                   </div>
                   {/* Bottom Right */}
-                  <div className="relative h-40 rounded-lg overflow-hidden">
+                  <div className="relative h-64 rounded-lg overflow-hidden">
                     <Image
                       src="/k4.jpg"
                       alt="Business meeting"
@@ -378,7 +378,7 @@ export default function AboutPage() {
                 <div>
                   <AnimatedHeading
                     className="text-4xl md:text-5xl font-light text-slate-800 mb-8"
-                    animation="letterReveal"
+                    animation="wordReveal"
                   >
                     Our Expertise
                   </AnimatedHeading>
