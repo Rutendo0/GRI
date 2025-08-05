@@ -200,7 +200,7 @@ export default function AboutPage() {
               <div>
                 <AnimatedHeading
                   className="text-4xl md:text-5xl font-light text-slate-800 mb-8"
-                  animation="letterReveal"
+                  animation="wordReveal"
                 >
                   Our Mission
                 </AnimatedHeading>
