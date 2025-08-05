@@ -17,20 +17,15 @@ export const metadata: Metadata = {
   publisher: "GRI - Gorilla Research And Investments",
   icons: {
     icon: [
-      { url: '/favicon.ico', sizes: '16x16', type: 'image/x-icon' },
       { url: '/favicon.svg', sizes: 'any', type: 'image/svg+xml' },
+      { url: '/favicon', sizes: '16x16', type: 'image/x-icon' },
       { url: '/icon', sizes: '32x32', type: 'image/png' },
       { url: '/icon-192', sizes: '192x192', type: 'image/png' },
     ],
     apple: [
       { url: '/apple-icon', sizes: '180x180', type: 'image/png' },
     ],
-    other: [
-      {
-        rel: 'apple-touch-icon-precomposed',
-        url: '/apple-icon',
-      },
-    ],
+    shortcut: '/favicon.svg',
   },
   manifest: '/manifest.json',
   viewport: 'width=device-width, initial-scale=1',
@@ -44,6 +39,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml" />
+        <link rel="icon" href="/favicon" sizes="16x16" type="image/x-icon" />
+        <link rel="apple-touch-icon" href="/apple-icon" sizes="180x180" />
+        <link rel="manifest" href="/manifest.json" />
+      </head>
       <body className={inter.className} suppressHydrationWarning>
         <AdminProvider>
           <ThemeProvider
