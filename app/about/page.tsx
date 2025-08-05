@@ -3,8 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import dynamic from "next/dynamic"
-import { useState } from "react"
-import { ChevronDown, ChevronUp } from "lucide-react"
+
 import { Card, CardContent } from "@/components/ui/card"
 import { ScrollHeader } from "@/components/scroll-header"
 import { ScrollAnimation } from "@/components/scroll-animations"
@@ -17,11 +16,6 @@ const AnimatedHeading = dynamic(() => import("@/components/animated-heading").th
 const TypewriterEffect = dynamic(() => import("@/components/typewriter-effect").then(mod => ({ default: mod.TypewriterEffect })))
 
 export default function AboutPage() {
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null)
-
-  const toggleDropdown = (cardName: string) => {
-    setOpenDropdown(openDropdown === cardName ? null : cardName)
-  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -170,13 +164,13 @@ export default function AboutPage() {
               </div>
 
               {/* Right Column - Image */}
-              <div className="relative w-3/4 mx-auto">
-                <div className="relative h-screen rounded-lg overflow-hidden">
+              <div className="relative">
+                <div className="relative h-96 rounded-lg overflow-hidden">
                   <Image
                     src="/image3.jfif"
                     alt="African elephant"
                     fill
-                    className="object-contain"
+                    className="object-cover"
                   />
                 </div>
               </div>
@@ -208,11 +202,11 @@ export default function AboutPage() {
                   className="text-4xl md:text-5xl font-light text-slate-800 mb-8"
                   animation="letterReveal"
                 >
-                  Our mission
+                  Our Mission
                 </AnimatedHeading>
                 <div className="text-lg text-slate-600 leading-relaxed">
                   <TypewriterEffect
-                    text="GRI accelerates Africa's sustainable development through innovative, tech-driven infrastructure in energy and urban growth. By merging Lean Six Sigma efficiency with advanced technology, we deliver affordable, resilient solutions that empower communities and align with global goals like the UN SDGs and Agenda 2063."
+                    text="GRI accelerates Africa's sustainable development through innovative, tech-driven infrastructure in energy and urban growth. By merging Lean Six Sigma efficiency with advanced technology, we deliver affordable, resilient solutions that empower communities and align with global goals like the UN SDGs and African Union's Agenda 2063."
                     speed={25}
                     delay={500}
                     showCursor={false}
@@ -236,126 +230,90 @@ export default function AboutPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
               {/* Investment Facilitation */}
-              <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 hover-lift cursor-pointer">
-                <div className="relative h-48" onClick={() => toggleDropdown('investment')}>
+              <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 hover-lift">
+                <div className="relative h-64">
                   <Image
                     src="/image17.jfif"
                     alt="Investment Facilitation"
                     fill
                     className="object-cover"
                   />
-                  <div className="absolute top-2 right-2 bg-white/90 rounded-full p-1">
-                    {openDropdown === 'investment' ? (
-                      <ChevronUp className="w-4 h-4 text-slate-600" />
-                    ) : (
-                      <ChevronDown className="w-4 h-4 text-slate-600" />
-                    )}
-                  </div>
                 </div>
-                {openDropdown === 'investment' && (
-                  <CardContent className="p-6">
-                    <h3 className="text-xl font-semibold text-slate-800 mb-3">
-                      Investment Facilitation:
-                    </h3>
-                    <p className="text-slate-600 text-sm leading-relaxed">
-                      We apply creative, forward-thinking solutions to address the unique challenges of Southern Africa's
-                      rapidly evolving markets. By thinking differently, we unlock new pathways to growth and value
-                      creation.
-                    </p>
-                  </CardContent>
-                )}
+                <CardContent className="p-6">
+                  <h3 className="text-xl font-semibold text-slate-800 mb-3">
+                    Investment Facilitation
+                  </h3>
+                  <p className="text-slate-600 text-sm leading-relaxed">
+                    We apply creative, forward-thinking solutions to address the unique challenges of Southern Africa's
+                    rapidly evolving markets. By thinking differently, we unlock new pathways to growth and value
+                    creation.
+                  </p>
+                </CardContent>
               </Card>
 
               {/* Regulatory Guidance */}
-              <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 hover-lift cursor-pointer">
-                <div className="relative h-48" onClick={() => toggleDropdown('regulatory')}>
+              <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 hover-lift">
+                <div className="relative h-64">
                   <Image
                     src="/image15.jpg"
                     alt="Regulatory Guidance"
                     fill
                     className="object-cover"
                   />
-                  <div className="absolute top-2 right-2 bg-white/90 rounded-full p-1">
-                    {openDropdown === 'regulatory' ? (
-                      <ChevronUp className="w-4 h-4 text-slate-600" />
-                    ) : (
-                      <ChevronDown className="w-4 h-4 text-slate-600" />
-                    )}
-                  </div>
                 </div>
-                {openDropdown === 'regulatory' && (
-                  <CardContent className="p-6">
-                    <h3 className="text-xl font-semibold text-slate-800 mb-3">
-                      Regulatory Guidance:
-                    </h3>
-                    <p className="text-slate-600 text-sm leading-relaxed">
-                      We thrive in complex, dynamic environments. Our resilience allows us to overcome obstacles, pivot
-                      when necessary, and deliver impactful solutions despite external challenges.
-                    </p>
-                  </CardContent>
-                )}
+                <CardContent className="p-6">
+                  <h3 className="text-xl font-semibold text-slate-800 mb-3">
+                    Regulatory Guidance
+                  </h3>
+                  <p className="text-slate-600 text-sm leading-relaxed">
+                    We thrive in complex, dynamic environments. Our resilience allows us to overcome obstacles, pivot
+                    when necessary, and deliver impactful solutions despite external challenges.
+                  </p>
+                </CardContent>
               </Card>
 
               {/* Project Management */}
-              <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 hover-lift cursor-pointer">
-                <div className="relative h-48" onClick={() => toggleDropdown('project')}>
+              <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 hover-lift">
+                <div className="relative h-64">
                   <Image
                     src="/image16.jpg"
                     alt="Project Management"
                     fill
                     className="object-cover"
                   />
-                  <div className="absolute top-2 right-2 bg-white/90 rounded-full p-1">
-                    {openDropdown === 'project' ? (
-                      <ChevronUp className="w-4 h-4 text-slate-600" />
-                    ) : (
-                      <ChevronDown className="w-4 h-4 text-slate-600" />
-                    )}
-                  </div>
                 </div>
-                {openDropdown === 'project' && (
-                  <CardContent className="p-6">
-                    <h3 className="text-xl font-semibold text-slate-800 mb-3">
-                      Project Management:
-                    </h3>
-                    <p className="text-slate-600 text-sm leading-relaxed">
-                      Our data-driven, research-backed approach ensures that every decision is based on the best available
-                      information. This enables us to offer actionable insights that deliver measurable results for both
-                      investors and local businesses.
-                    </p>
-                  </CardContent>
-                )}
+                <CardContent className="p-6">
+                  <h3 className="text-xl font-semibold text-slate-800 mb-3">
+                    Project Management
+                  </h3>
+                  <p className="text-slate-600 text-sm leading-relaxed">
+                    Our data-driven, research-backed approach ensures that every decision is based on the best available
+                    information. This enables us to offer actionable insights that deliver measurable results for both
+                    investors and local businesses.
+                  </p>
+                </CardContent>
               </Card>
 
               {/* Feasibility Studies */}
-              <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 hover-lift cursor-pointer">
-                <div className="relative h-48" onClick={() => toggleDropdown('feasibility')}>
+              <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 hover-lift">
+                <div className="relative h-64">
                   <Image
                     src="/image10.png"
                     alt="Feasibility Studies and Market Analytics"
                     fill
                     className="object-cover"
                   />
-                  <div className="absolute top-2 right-2 bg-white/90 rounded-full p-1">
-                    {openDropdown === 'feasibility' ? (
-                      <ChevronUp className="w-4 h-4 text-slate-600" />
-                    ) : (
-                      <ChevronDown className="w-4 h-4 text-slate-600" />
-                    )}
-                  </div>
                 </div>
-                {openDropdown === 'feasibility' && (
-                  <CardContent className="p-6">
-                    <h3 className="text-xl font-semibold text-slate-800 mb-3">
-                      Feasibility Studies and Market Analytics:
-                    </h3>
-                    <p className="text-slate-600 text-sm leading-relaxed">
-                      We prioritize projects that deliver long-term, sustainable outcomes. Our work is designed not only
-                      to generate financial returns but also to positively impact local communities, economies, and
-                      ecosystems.
-                    </p>
-                  </CardContent>
-                )}
+                <CardContent className="p-6">
+                  <h3 className="text-xl font-semibold text-slate-800 mb-3">
+                    Feasibility Studies and Market Analytics
+                  </h3>
+                  <p className="text-slate-600 text-sm leading-relaxed">
+                    We prioritize projects that deliver long-term, sustainable outcomes. Our work is designed not only
+                    to generate financial returns but also to positively impact local communities, economies, and
+                    ecosystems.
+                  </p>
+                </CardContent>
               </Card>
             </div>
           </div>
