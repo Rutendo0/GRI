@@ -224,7 +224,7 @@ export default function AboutPage() {
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <AnimatedHeading className="text-4xl md:text-5xl font-light text-slate-800 mb-4" animation="wordReveal">
-                Our Core values
+                Our Core Values
               </AnimatedHeading>
             </div>
 
@@ -478,6 +478,9 @@ export default function AboutPage() {
           </div>
         </section>
       </ScrollAnimation>
+
+      {/* Separator */}
+      <div className="bg-gradient-to-r from-slate-200 via-slate-300 to-slate-200 h-px" />
 
       {/* Footer */}
       <Footer />
