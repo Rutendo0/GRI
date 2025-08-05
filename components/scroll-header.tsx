@@ -65,7 +65,7 @@ export function ScrollHeader() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? "bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-200/30"
+            ? "bg-white/98 backdrop-blur-md shadow-lg border-b border-gray-200"
             : "bg-transparent"
         }`}
       >
@@ -143,7 +143,7 @@ export function ScrollHeader() {
             {/* Mobile Menu Button */}
             <button
               className={`lg:hidden p-2 rounded-lg transition-all duration-200 ${
-                isScrolled ? "text-slate-700 hover:bg-gray-100" : "text-white hover:bg-white/10"
+                isScrolled ? "text-slate-900 hover:bg-gray-100" : "text-white hover:bg-white/10"
               }`}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label="Toggle mobile menu"
@@ -157,7 +157,7 @@ export function ScrollHeader() {
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
         <div className="fixed inset-0 z-40 lg:hidden">
-          <div 
+          <div
             className="absolute inset-0 bg-black/50 backdrop-blur-sm"
             onClick={() => setIsMobileMenuOpen(false)}
           />
