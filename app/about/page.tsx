@@ -479,8 +479,19 @@ export default function AboutPage() {
         </section>
       </ScrollAnimation>
 
-      {/* Separator */}
-      <div className="bg-gradient-to-r from-slate-200 via-slate-300 to-slate-200 h-px" />
+      {/* Enhanced Separator Section */}
+      <div className="relative bg-gradient-to-br from-slate-100 to-slate-200 py-16">
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-slate-300 to-transparent opacity-50"></div>
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <div className="w-32 h-1 bg-gradient-to-r from-amber-500 to-orange-600 mx-auto mb-8"></div>
+          <div className="max-w-2xl mx-auto">
+            <p className="text-lg text-slate-600 italic">
+              "Building bridges between global investors and Africa's transformative opportunities"
+            </p>
+          </div>
+          <div className="w-32 h-1 bg-gradient-to-r from-orange-600 to-amber-500 mx-auto mt-8"></div>
+        </div>
+      </div>
 
       {/* Footer */}
       <Footer />
