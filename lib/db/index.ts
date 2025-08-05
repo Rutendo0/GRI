@@ -10,7 +10,7 @@ export async function getPool(): Promise<Pool> {
   // For development/demo, we'll use a simple in-memory storage
   if (!process.env.DATABASE_URL) {
     console.warn('No DATABASE_URL found, using demo data');
-    throw new Error('Database not configured - using demo data');
+    return null; // Return null instead of throwing error
   }
 
   pool = new Pool({
@@ -24,6 +24,9 @@ export async function getPool(): Promise<Pool> {
 export async function query(text: string, params: any[] = []) {
   try {
     const pool = await getPool();
+    if (!pool) {
+      throw new Error('Database not configured');
+    }
     const result = await pool.query(text, params);
     return result;
   } catch (error) {
