@@ -137,7 +137,7 @@ export default function HomePage() {
 
       {/* Company Description */}
       <ScrollAnimation animation="fadeUp">
-        <section className="py-24 bg-gradient-to-b from-white to-gray-50">
+        <section className="py-16 bg-gradient-to-b from-white to-gray-50">
           <div className="container mx-auto px-4 text-center">
             <div className="max-w-5xl mx-auto">
               <p className="text-xl md:text-1xl text-slate-700 leading-relaxed font-light mb-4">
@@ -151,7 +151,7 @@ export default function HomePage() {
       {/* Our Values Section */}
       <ParallaxSection speed={0.3}>
         <ScrollAnimation animation="scaleIn">
-          <section className="py-20 bg-gradient-to-br from-blue-100 to-blue-200 relative overflow-hidden">
+          <section className="py-32 bg-gradient-to-br from-blue-100 to-blue-200 relative overflow-hidden">
             <div className="absolute left-0 top-0 bottom-0 w-1/3">
               <Image
                 src="/image.jpg"
@@ -215,14 +215,28 @@ export default function HomePage() {
                         className="w-full h-full"
                       >
                         <InteractiveCard
-                          className={`${isBlue ? "bg-gradient-to-br from-blue-800 to-blue-900" : "bg-white/90 backdrop-blur-sm"} p-4 lg:p-6 rounded-xl shadow-lg border-0 hover:scale-105 transition-all duration-300 cursor-pointer w-full h-full`}
+                          className={`${isBlue ? "bg-gradient-to-br from-blue-800 to-blue-900" : "bg-white/90 backdrop-blur-sm"} p-6 lg:p-8 rounded-xl shadow-lg border-0 hover:scale-105 transition-all duration-300 cursor-pointer w-full h-48 lg:h-56 relative`}
                         >
-                          <div className="flex flex-col items-center text-center gap-3">
-                            <Icon className={`w-6 h-6 lg:w-8 lg:h-8 ${isBlue ? "text-blue-300" : "text-blue-500"}`} />
-                            <h4 className={`text-sm lg:text-lg font-semibold ${isBlue ? "text-white" : "text-slate-800"}`}>
+                          {/* Plus icon in top right corner */}
+                          <div className="absolute top-4 right-4">
+                            <div className={`w-6 h-6 rounded-full flex items-center justify-center ${isBlue ? "bg-white/20" : "bg-blue-100"}`}>
+                              <svg 
+                                className={`w-3 h-3 ${isBlue ? "text-white" : "text-blue-600"}`} 
+                                fill="none" 
+                                stroke="currentColor" 
+                                viewBox="0 0 24 24"
+                              >
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                              </svg>
+                            </div>
+                          </div>
+                          
+                          <div className="flex flex-col items-center text-center gap-4 h-full justify-center">
+                            <Icon className={`w-8 h-8 lg:w-10 lg:h-10 ${isBlue ? "text-blue-300" : "text-blue-500"}`} />
+                            <h4 className={`text-lg lg:text-xl font-semibold ${isBlue ? "text-white" : "text-slate-800"}`}>
                               {value.name}
                             </h4>
-                            <p className={`text-xs ${isBlue ? "text-blue-200" : "text-slate-600"}`}>
+                            <p className={`text-sm ${isBlue ? "text-blue-200" : "text-slate-600"}`}>
                               {value.description}
                             </p>
                           </div>
