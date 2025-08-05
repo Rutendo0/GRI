@@ -60,7 +60,7 @@ export function AnimatedHeading({ children, className = "", delay = 0, animation
     return `${baseClasses} opacity-100 transform translate-y-0 scale-100`
   }
 
-  if (animation === "letterReveal" && typeof children === "string") {
+  if (animation === "letterReveal" && typeof children === "string" && children) {
     return (
       <div ref={elementRef} className={className}>
         <div className={`${getAnimationClasses()}`}>
@@ -81,7 +81,7 @@ export function AnimatedHeading({ children, className = "", delay = 0, animation
     )
   }
 
-  if (animation === "wordReveal" && typeof children === "string") {
+  if (animation === "wordReveal" && typeof children === "string" && children) {
     return (
       <div ref={elementRef} className={className}>
         <div className={`${getAnimationClasses()}`}>
