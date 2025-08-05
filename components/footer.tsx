@@ -1,7 +1,7 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { Mail, MapPin, Instagram, Linkedin } from "lucide-react"
+import { Mail, MapPin, Linkedin, Facebook } from "lucide-react"
 
 export function Footer() {
   return (
@@ -34,9 +34,6 @@ export function Footer() {
               </Link>
               <Link href="/services" className="block text-gray-300 hover:text-white transition-colors">
                 Services
-              </Link>
-              <Link href="/insights" className="block text-gray-300 hover:text-white transition-colors">
-                Insights
               </Link>
               <Link href="/contact" className="block text-gray-300 hover:text-white transition-colors">
                 Contact
@@ -75,13 +72,13 @@ export function Footer() {
               <h4 className="text-lg font-semibold mb-4">Follow Us</h4>
               <div className="flex gap-4">
                 <a 
-                  href="https://www.instagram.com/gri_zw/" 
+                  href="https://www.facebook.com/profile.php?id=61578689275784" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors"
                 >
-                  <Instagram className="w-5 h-5" />
-                  <span>Instagram</span>
+                  <Facebook className="w-5 h-5" />
+                  <span>Facebook</span>
                 </a>
                 <a 
                   href="https://www.linkedin.com/company/gorilla-research-and-investments/" 

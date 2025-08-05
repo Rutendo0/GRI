@@ -35,22 +35,23 @@ export default function HomePage() {
   const [activeSection, setActiveSection] = useState(1) // 1 = Values, 2 = Vision
 
   const ourValues = [
-    { name: "Innovation", icon: Sparkles, bg: "white", description: "Driving creative solutions" },
-    { name: "Resilience", icon: Shield, bg: "white", description: "Adapting to challenges" },
-    { name: "Integrity", icon: TrendingUp, bg: "white", description: "Building trust" },
-    { name: "Excellence", icon: Zap, bg: "blue", description: "Delivering quality" },
-    { name: "Collaboration", icon: Users, bg: "blue", description: "Working together" },
-    { name: "Sustainability", icon: Globe, bg: "blue", description: "Future-focused" },
-  ]
-
+    { name: "Innovation", description: "Driving creative solutions" },
+    { name: "Resilience", bg: "white", description: "Adapting to challenges" },
+    { name: "Integrity", bg: "white", description: "Building trust" },
+    { name: "Excellence", bg: "blue", description: "Delivering quality" },
+    { name: "Collaboration", bg: "blue", description: "Working together" },
+    { name: "Sustainability", bg: "blue", description: "Future-focused" },
+  ];
+  
   const ourVision = [
-    { name: "Empowering Africa as a Global Investment Hub", icon: Target, bg: "white"},
-    { name: "Setting the Standard for Research-Driven Solutions", icon: TrendingUp, bg: "white"},
-    { name: "Innovating for a Sustainable Future", icon: Award, bg: "white" },
-    { name: "Elevating Businesses Through Excellence", icon: Shield, bg: "blue" },
-    { name: "Foster Innovation and Creativity", icon: Zap, bg: "blue" },
-    { name: "Empower Local Economies and Communities", icon: Users, bg: "blue" },
-  ]
+    { name: "Empowering Africa as a Global Investment Hub", bg: "white" },
+    { name: "Setting the Standard for Research-Driven Solutions", bg: "white" },
+    { name: "Innovating for a Sustainable Future", bg: "white" },
+    { name: "Elevating Businesses Through Excellence", bg: "blue" },
+    { name: "Foster Innovation and Creativity", bg: "blue" },
+    { name: "Empower Local Economies and Communities", bg: "blue" },
+  ];
+  
 
   return (
     <div className="min-h-screen">
@@ -232,13 +233,14 @@ export default function HomePage() {
                           </div>
                           
                           <div className="flex flex-col items-center text-center gap-4 h-full justify-center">
-                            <Icon className={`w-8 h-8 lg:w-10 lg:h-10 ${isBlue ? "text-blue-300" : "text-blue-500"}`} />
-                            <h4 className={`text-lg lg:text-xl font-semibold ${isBlue ? "text-white" : "text-slate-800"}`}>
-                              {value.name}
-                            </h4>
-                            <p className={`text-sm ${isBlue ? "text-blue-200" : "text-slate-600"}`}>
-                              {value.description}
-                            </p>
+                         <h4 className={`text-lg lg:text-xl font-semibold ${isBlue ? "text-white" : "text-slate-800"}`}>
+                     {value.name}
+                    </h4>
+                 {value.description && (
+                 <p className={`text-sm ${isBlue ? "text-blue-200" : "text-slate-600"}`}>
+               {value.description}
+                       </p>
+                 )}
                           </div>
                         </InteractiveCard>
                       </button>

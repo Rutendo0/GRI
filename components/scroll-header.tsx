@@ -125,14 +125,6 @@ export function ScrollHeader() {
                 Blog
               </Link>
               <Link
-                href="/insights"
-                className={`font-medium text-sm xl:text-base transition-all duration-200 hover:text-blue-600 hover:scale-105 ${
-                  isScrolled ? "text-slate-700" : "text-blue-950"
-                }`}
-              >
-                Insights
-              </Link>
-              <Link
                 href="/contact"
                 className="bg-blue-600 text-blue-950 px-4 xl:px-6 py-2 xl:py-2.5 rounded-full text-sm xl:text-base font-medium hover:bg-blue-700 transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl"
               >
