@@ -327,46 +327,50 @@ export default function AboutPage() {
             <div className="container mx-auto px-4">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 {/* Left Column - Images */}
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-4">
-                    <div className="relative h-48 rounded-lg overflow-hidden">
-                      <Image
-                        src="/k1.jpg"
-                        alt="African cityscape"
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <div className="relative h-32 rounded-lg overflow-hidden">
-                      <Image
-                        src="/k2.jfif"
-                        alt="Modern buildings"
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
+                <div className="grid grid-cols-2 gap-3">
+                  {/* Top Left */}
+                  <div className="relative h-40 rounded-lg overflow-hidden">
+                    <Image
+                      src="/k1.jpg"
+                      alt="African cityscape"
+                      fill
+                      className="object-cover"
+                      quality={95}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                    />
                   </div>
-                  <div className="space-y-4">
-                    <div className="relative h-32 rounded-lg overflow-hidden">
-                      <Image
-                        src="/k3.jpg"
-                        alt="African wildlife"
-                        fill
-                        className="object-cover"
-                        quality={95}
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      />
-                    </div>
-                    <div className="relative h-48 rounded-lg overflow-hidden">
-                      <Image
-                        src="/k4.jpg"
-                        alt="Business meeting"
-                        fill
-                        className="object-cover"
-                        quality={95}
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      />
-                    </div>
+                  {/* Top Right */}
+                  <div className="relative h-40 rounded-lg overflow-hidden">
+                    <Image
+                      src="/k2.jfif"
+                      alt="Modern buildings"
+                      fill
+                      className="object-cover"
+                      quality={95}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                    />
+                  </div>
+                  {/* Bottom Left */}
+                  <div className="relative h-40 rounded-lg overflow-hidden">
+                    <Image
+                      src="/k3.jpg"
+                      alt="African wildlife"
+                      fill
+                      className="object-cover"
+                      quality={95}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                    />
+                  </div>
+                  {/* Bottom Right */}
+                  <div className="relative h-40 rounded-lg overflow-hidden">
+                    <Image
+                      src="/k4.jpg"
+                      alt="Business meeting"
+                      fill
+                      className="object-cover"
+                      quality={95}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                    />
                   </div>
                 </div>
 
