@@ -11,6 +11,30 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "GRI - Gorilla Research And Investments",
   description: "Leading infrastructure development and strategic investments across Africa",
+  keywords: ["GRI", "Gorilla Research", "Investments", "Africa", "Infrastructure", "Development"],
+  authors: [{ name: "GRI Team" }],
+  creator: "GRI - Gorilla Research And Investments",
+  publisher: "GRI - Gorilla Research And Investments",
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: '16x16', type: 'image/x-icon' },
+      { url: '/favicon.svg', sizes: 'any', type: 'image/svg+xml' },
+      { url: '/icon', sizes: '32x32', type: 'image/png' },
+      { url: '/icon-192', sizes: '192x192', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/apple-icon', sizes: '180x180', type: 'image/png' },
+    ],
+    other: [
+      {
+        rel: 'apple-touch-icon-precomposed',
+        url: '/apple-icon',
+      },
+    ],
+  },
+  manifest: '/manifest.json',
+  viewport: 'width=device-width, initial-scale=1',
+  themeColor: '#1a1a1a',
 }
 
 export default function RootLayout({
