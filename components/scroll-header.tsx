@@ -95,7 +95,7 @@ export function ScrollHeader() {
               <Link
                 href="/"
                 className={`font-medium text-sm xl:text-base transition-all duration-200 hover:text-blue-600 hover:scale-105 ${
-                  isScrolled ? "text-slate-700" : "text-white"
+                  isScrolled ? "text-slate-700" : "text-blue-950"
                 }`}
               >
                 Home
@@ -103,7 +103,7 @@ export function ScrollHeader() {
               <Link
                 href="/about"
                 className={`font-medium text-sm xl:text-base transition-all duration-200 hover:text-blue-600 hover:scale-105 ${
-                  isScrolled ? "text-slate-700" : "text-white"
+                  isScrolled ? "text-slate-700" : "text-blue-950"
                 }`}
               >
                 About
@@ -111,7 +111,7 @@ export function ScrollHeader() {
               <Link
                 href="/services"
                 className={`font-medium text-sm xl:text-base transition-all duration-200 hover:text-blue-600 hover:scale-105 ${
-                  isScrolled ? "text-slate-700" : "text-white"
+                  isScrolled ? "text-slate-700" : "text-blue-950"
                 }`}
               >
                 Services
@@ -119,7 +119,7 @@ export function ScrollHeader() {
               <Link
                 href="/blog"
                 className={`font-medium text-sm xl:text-base transition-all duration-200 hover:text-blue-600 hover:scale-105 ${
-                  isScrolled ? "text-slate-700" : "text-white"
+                  isScrolled ? "text-slate-700" : "text-blue-950"
                 }`}
               >
                 Blog
@@ -127,14 +127,14 @@ export function ScrollHeader() {
               <Link
                 href="/insights"
                 className={`font-medium text-sm xl:text-base transition-all duration-200 hover:text-blue-600 hover:scale-105 ${
-                  isScrolled ? "text-slate-700" : "text-white"
+                  isScrolled ? "text-slate-700" : "text-blue-950"
                 }`}
               >
                 Insights
               </Link>
               <Link
                 href="/contact"
-                className="bg-blue-600 text-white px-4 xl:px-6 py-2 xl:py-2.5 rounded-full text-sm xl:text-base font-medium hover:bg-blue-700 transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl"
+                className="bg-blue-600 text-blue-950 px-4 xl:px-6 py-2 xl:py-2.5 rounded-full text-sm xl:text-base font-medium hover:bg-blue-700 transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl"
               >
                 Contact
               </Link>

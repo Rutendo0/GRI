@@ -339,45 +339,13 @@ export default function ServicesPage() {
 
       {/* Key Benefits Section */}
       <ScrollAnimation animation="scaleIn">
-        <section className="py-20 bg-white">
+        <section className="py-20 bg-blue-950">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-light text-slate-800 mb-8">Why Choose GRI</h2>
             </div>
 
            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto mb-16">
-  <Card className="bg-gray-100 p-8 rounded-2xl text-left shadow-md hover:shadow-lg transition">
-    <ul className="space-y-3">
-      <li className="flex items-start gap-2">
-        <span className="text-purple-700 mt-1">✔</span>
-        <span className="text-lg font-medium text-gray-800">
-          Extended credit for suppliers and buyers
-        </span>
-      </li>
-    </ul>
-  </Card>
-
-  <Card className="bg-gray-100 p-8 rounded-2xl text-left shadow-md hover:shadow-lg transition">
-    <ul className="space-y-3">
-      <li className="flex items-start gap-2">
-        <span className="text-purple-700 mt-1">✔</span>
-        <span className="text-lg font-medium text-gray-800">
-          Effective risk management of currency, credit and price
-        </span>
-      </li>
-    </ul>
-  </Card>
-
-  <Card className="bg-gray-100 p-8 rounded-2xl text-left shadow-md hover:shadow-lg transition">
-    <ul className="space-y-3">
-      <li className="flex items-start gap-2">
-        <span className="text-purple-700 mt-1">✔</span>
-        <span className="text-lg font-medium text-gray-800">
-          In-depth knowledge of operational markets
-        </span>
-      </li>
-    </ul>
-  </Card>
 </div>
 
 

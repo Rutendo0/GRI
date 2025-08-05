@@ -165,7 +165,7 @@ export default function AboutPage() {
 
               {/* Right Column - Image */}
               <div className="relative">
-                <div className="relative h-[500px] rounded-lg overflow-hidden">
+                <div className="relative h-[800px] rounded-lg overflow-hidden">
                   <Image
                     src="/image3.jfif"
                     alt="African elephant"
@@ -329,7 +329,7 @@ export default function AboutPage() {
                 {/* Left Column - Images */}
                 <div className="grid grid-cols-2 gap-3">
                   {/* Top Left */}
-                  <div className="relative h-64 rounded-lg overflow-hidden">
+                  <div className="relative h-[500px] rounded-lg overflow-hidden">
                     <Image
                       src="/k1.jpg"
                       alt="African cityscape"
@@ -340,7 +340,7 @@ export default function AboutPage() {
                     />
                   </div>
                   {/* Top Right */}
-                  <div className="relative h-64 rounded-lg overflow-hidden">
+                  <div className="relative h-[500px] rounded-lg overflow-hidden">
                     <Image
                       src="/k2.jfif"
                       alt="Modern buildings"
@@ -351,7 +351,7 @@ export default function AboutPage() {
                     />
                   </div>
                   {/* Bottom Left */}
-                  <div className="relative h-64 rounded-lg overflow-hidden">
+                  <div className="relative h-[500px] rounded-lg overflow-hidden">
                     <Image
                       src="/k3.jpg"
                       alt="African wildlife"
@@ -456,7 +456,7 @@ export default function AboutPage() {
 
       {/* Why GRI Section */}
       <ScrollAnimation animation="fadeRight">
-        <section className="py-20 bg-black">
+        <section className="py-20 bg-blue-950">
           <div className="container mx-auto px-4 text-center">
             <AnimatedHeading className="text-4xl md:text-5xl font-light text-white mb-12" animation="wordReveal">
               Why GRI?

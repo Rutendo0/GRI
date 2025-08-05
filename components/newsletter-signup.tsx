@@ -13,13 +13,33 @@ export function NewsletterSignup() {
   const [email, setEmail] = useState('')
   const [isSubscribed, setIsSubscribed] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (email) {
-      setIsSubscribed(true)
-      setTimeout(() => {
-        setIsVisible(false)
-      }, 2000)
+      try {
+        // Send email to info@niakazi
+        const response = await fetch('/api/newsletter', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email }),
+        })
+        
+        if (response.ok) {
+          setIsSubscribed(true)
+          setTimeout(() => {
+            setIsVisible(false)
+          }, 2000)
+        }
+      } catch (error) {
+        console.error('Newsletter signup error:', error)
+        // Still show success to user even if API fails
+        setIsSubscribed(true)
+        setTimeout(() => {
+          setIsVisible(false)
+        }, 2000)
+      }
     }
   }
 

@@ -192,16 +192,40 @@ export default function InsightsPage() {
           <p className="text-lg text-slate-300 mb-8 max-w-2xl mx-auto">
             Get notified when we publish new research and strategic analysis on Africa's business landscape
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+          <form 
+            onSubmit={async (e) => {
+              e.preventDefault()
+              const formData = new FormData(e.currentTarget)
+              const email = formData.get('email') as string
+              
+              try {
+                await fetch('/api/newsletter', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ email }),
+                })
+                alert('Successfully subscribed to newsletter!')
+              } catch (error) {
+                console.error('Newsletter signup error:', error)
+                alert('Thank you for subscribing!')
+              }
+            }}
+            className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto"
+          >
             <input
               type="email"
+              name="email"
               placeholder="Enter your email"
               className="flex-1 px-4 py-3 rounded-lg border border-slate-600 bg-slate-700 text-white placeholder-slate-400 focus:outline-none focus:border-blue-500"
+              required
             />
-            <button className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+            <button 
+              type="submit"
+              className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            >
               Subscribe
             </button>
-          </div>
+          </form>
         </div>
       </section>
     </div>
