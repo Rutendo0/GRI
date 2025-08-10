@@ -14,6 +14,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Settings, Lock, Unlock, Shield, Loader2 } from "lucide-react";
+import { SystemStatus } from "./SystemStatus";
 
 export function AdminToggle() {
   const { isAdmin, toggleAdmin, setAdmin } = useAdmin();
@@ -23,15 +24,25 @@ export function AdminToggle() {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleAdminLogin = async () => {
-    // For demo purposes, use a simple password check
-    // In production, this should call your API
-    if (password === "admin123") {
-      setAdmin(true);
-      setShowPasswordDialog(false);
-      setPassword("");
-      setError("");
-    } else {
-      setError("Invalid password");
+    setIsLoading(true);
+    setError("");
+    
+    try {
+      // Strong password with multiple requirements
+      const validPassword = "GRI#Admin2024!Secure@Blog";
+      
+      if (password === validPassword) {
+        setAdmin(true);
+        setShowPasswordDialog(false);
+        setPassword("");
+        setError("");
+      } else {
+        setError("Invalid password. Contact system administrator for access.");
+      }
+    } catch (error) {
+      setError("Authentication failed. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -43,14 +54,17 @@ export function AdminToggle() {
 
   if (isAdmin) {
     return (
-      <div className="flex items-center gap-2">
-        <Badge variant="destructive" className="flex items-center gap-1">
-          <Shield className="w-3 h-3" />
-          Admin Mode
-        </Badge>
-        <Button variant="outline" size="sm" onClick={handleAdminLogout}>
-          Exit Admin
-        </Button>
+      <div className="space-y-3">
+        <div className="flex items-center gap-2">
+          <Badge variant="destructive" className="flex items-center gap-1">
+            <Shield className="w-3 h-3" />
+            Admin Mode
+          </Badge>
+          <Button variant="outline" size="sm" onClick={handleAdminLogout}>
+            Exit Admin
+          </Button>
+        </div>
+        <SystemStatus />
       </div>
     );
   }

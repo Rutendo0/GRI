@@ -6,7 +6,10 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start",
+    "setup-production": "node scripts/setup-production.js",
+    "db:init": "echo 'Database will auto-initialize on first API call'",
+    "check-mode": "node -e \"console.log(process.env.DATABASE_URL ? '🟢 Production Mode' : '🟡 Demo Mode')\""
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",

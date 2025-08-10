@@ -37,6 +37,7 @@ export interface CreateBlogPostRequest {
  * API request for updating a blog post
  */
 export interface UpdateBlogPostRequest {
+  id: string;
   title?: string;
   content?: string;
   excerpt?: string;

@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import {
   BlogPost,
   GetBlogPostsResponse,
@@ -695,26 +696,29 @@ export default function BlogPage() {
     }
   };
 
-  // Get all unique tags
-  const allTags = [...new Set(posts.flatMap((post) => post.tags))];
-
-  // Filter featured posts
-  const featuredPosts = posts.filter((post) => post.featured);
-
-  const handleEditPost = (post: BlogPost) => {
-    setEditingPost(post);
-    setShowEditor(true);
-  };
-
+  // Handle delete button click
   const handleDeleteClick = (postId: string) => {
     setPostToDelete(postId);
     setDeleteDialogOpen(true);
   };
 
+  // Handle edit post
+  const handleEditPost = (post: BlogPost) => {
+    setEditingPost(post);
+    setShowEditor(true);
+  };
+
+  // Handle new post
   const handleNewPost = () => {
     setEditingPost(null);
     setShowEditor(true);
   };
+
+  // Get all unique tags
+  const allTags = [...new Set(posts.flatMap((post) => post.tags))];
+
+  // Filter featured posts
+  const featuredPosts = posts.filter((post) => post.featured);
 
   if (showEditor) {
     return (
@@ -737,52 +741,67 @@ export default function BlogPage() {
       <ScrollProgress />
       <ScrollHeader />
       
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-50 to-indigo-100 pt-24 pb-16">
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between items-start mb-8">
-            <div>
-              <div className="flex items-center gap-2 mb-4">
-                <BookOpen className="w-8 h-8 text-blue-600" />
-                <span className="text-blue-600 font-medium">GRI Blog</span>
+      {/* Hero Section with Background Image */}
+      <section className="relative h-[60vh] min-h-[600px] flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0">
+          <Image
+            src="/blog.jfif"
+            alt="GRI Blog - Business insights and opportunities"
+            fill
+            className="object-cover"
+            priority
+            quality={100}
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-black/40" />
+        </div>
+        
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="flex justify-between items-start mb-12">
+            <div className="text-white">
+              <div className="flex items-center gap-2 mb-6">
+                <BookOpen className="w-8 h-8 text-white" />
+                <span className="text-white font-medium text-lg">GRI Blog</span>
               </div>
               
-              <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
-                GRI Blog
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-white mb-6 drop-shadow-lg">
+                Insights & Innovation
               </h1>
               
-              <p className="text-xl text-slate-700 max-w-2xl">
+              <p className="text-xl md:text-2xl text-white/90 max-w-3xl leading-relaxed drop-shadow-md">
                 {isAdmin ? "Share insights on business opportunities, career development, industry news, and technological innovations shaping Africa's future. Built for professionals and thought leaders." : "Stay informed with the latest business opportunities, career insights, industry news, and technological innovations driving Africa's economic transformation."}
               </p>
             </div>
             
-            <AdminToggle />
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-2">
+              <AdminToggle />
+            </div>
           </div>
 
           {/* Quick Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 text-center">
+            <div className="bg-white/20 backdrop-blur-sm rounded-lg p-6 text-center border border-white/20">
               <div className="flex items-center justify-center mb-2">
-                <BookOpen className="w-6 h-6 text-blue-600" />
+                <BookOpen className="w-6 h-6 text-white" />
               </div>
-              <div className="text-2xl font-bold text-slate-900">{posts.length}</div>
-              <div className="text-sm text-slate-600">Total Posts</div>
+              <div className="text-2xl font-bold text-white">{posts.length}</div>
+              <div className="text-sm text-white/80">Total Posts</div>
             </div>
             
-            <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 text-center">
+            <div className="bg-white/20 backdrop-blur-sm rounded-lg p-6 text-center border border-white/20">
               <div className="flex items-center justify-center mb-2">
-                <Sparkles className="w-6 h-6 text-yellow-600" />
+                <Sparkles className="w-6 h-6 text-white" />
               </div>
-              <div className="text-2xl font-bold text-slate-900">{featuredPosts.length}</div>
-              <div className="text-sm text-slate-600">Featured</div>
+              <div className="text-2xl font-bold text-white">{featuredPosts.length}</div>
+              <div className="text-sm text-white/80">Featured</div>
             </div>
             
-            <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 text-center">
+            <div className="bg-white/20 backdrop-blur-sm rounded-lg p-6 text-center border border-white/20">
               <div className="flex items-center justify-center mb-2">
-                <Zap className="w-6 h-6 text-green-600" />
+                <Zap className="w-6 h-6 text-white" />
               </div>
-              <div className="text-2xl font-bold text-slate-900">{allTags.length}</div>
-              <div className="text-sm text-slate-600">Topics</div>
+              <div className="text-2xl font-bold text-white">{allTags.length}</div>
+              <div className="text-sm text-white/80">Topics</div>
             </div>
           </div>
         </div>

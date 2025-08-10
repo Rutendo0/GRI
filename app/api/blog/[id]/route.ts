@@ -1,187 +1,86 @@
-
 import { NextRequest, NextResponse } from 'next/server';
-import { getBlogPostById, updateBlogPost, deleteBlogPost } from '@/lib/services/blog';
+import { 
+  getDemoPostById, 
+  updateDemoPost, 
+  deleteDemoPost 
+} from '@/lib/services/demo-data';
 
-// Demo data fallback
-const demoBlogs = [
-  {
-    id: "5",
-    title: "Investment Analyst Internship (Harare) - Join GRI",
-    content: `# Investment Analyst Internship (Harare)
-
-**Location:** Harare, Zimbabwe  
-**Duration:** 3–6 Months (Strong possibility of full-time conversion)  
-**Start Date:** Rolling Intake  
-**Application Deadline:** Continuous review until position filled
-
-Are you an exceptional attachment-year student or recent graduate driven by numbers, strategy, and predicting future economic outcomes?
-
-**Join us:** Move beyond theory and apply your analytical skills to real-world financial challenges.
-
-## CORE RESPONSIBILITIES
-
-### Deal Valuation
-Build and stress-test financial models (DCF, IRR, ROI) for live transactions
-
-### M&A Analysis
-Develop merger models and accretion/dilution forecasts
-
-### Profitability Optimisation
-Analyse segment-level P&Ls to identify margin drivers
-
-### Strategic Storytelling
-Transform complex data into executive-ready insights
-
-## REQUIRED QUALIFICATIONS
-
-### 1. Academic Background
-- **Essential:** Attachment-year/recent graduate in Data Science, Finance, Actuarial Science, or Applied Mathematics or an other related field
-- **Preferred:** Data Science Economics (Quantitative), Financial Engineering, or Industrial Engineering with finance focus
-- **Asset:** Progress toward CFA Level 1/FMVA or financial modeling certifications
-
-### 2. Technical Expertise
-- **Non-negotiable:** Advanced Excel (scenario modeling, XNPV/XIRR), DCF/IRR mastery, basic statistics
-- **Valued:** Python/R, Power BI/Tableau exposure
-- **Bonus:** Knowledge of term sheets, joint ventures, or Zimbabwean regulatory frameworks
-
-### 3. Critical Competencies
-- **Analytical Rigor:** Deconstruct ambiguous problems into data-driven solutions
-- **Precision:** Meticulous approach to financial modeling
-- **Executive Communication:** Translate technical analyses into persuasive narratives
-- **Agile Mindset:** Thrive in Zimbabwe's dynamic business environment
-
-### 4. Experience Profile
-- **Top candidates:** Finance/consulting internships, case competitions, modeling projects
-- **Secondary:** Kaggle, quantitative research, or market analysis roles
-
-## How to Apply
-
-Ready to accelerate your finance career with real-world experience? This internship offers hands-on exposure to investment analysis, financial modeling, and strategic decision-making in one of Africa's most dynamic investment firms.
-
-**What We Offer:**
-- Mentorship from experienced investment professionals
-- Exposure to live deal transactions and market analysis
-- Professional development and networking opportunities
-- Competitive compensation and potential for full-time conversion
-- Direct involvement in shaping Africa's investment landscape
-
-Join GRI and be part of driving innovation and investment across Africa. Apply today to start your journey in investment analysis and financial consulting.`,
-    excerpt: "Join GRI as an Investment Analyst Intern in Harare. 3-6 month internship with strong possibility of full-time conversion. Apply your analytical skills to real-world financial challenges.",
-    author: "GRI Careers Team",
-    publishedAt: "2024-01-25T10:00:00Z",
-    updatedAt: "2024-01-25T10:00:00Z",
-    tags: ["careers", "internship", "investment", "finance", "harare"],
-    featured: true,
-    readingTime: 5,
-    featuredImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80",
-    imageAlt: "Professional working on financial analysis and investment models"
-  },
-  {
-    id: "1",
-    title: "Top Investment Opportunities in African Infrastructure Development",
-    content: `# Top Investment Opportunities in African Infrastructure Development
-
-Africa's infrastructure gap presents unprecedented investment opportunities for forward-thinking investors. With growing populations and expanding economies, the continent needs massive infrastructure investment across multiple sectors.
-
-## Key Investment Sectors
-
-### Transportation Infrastructure
-- **Highway Development**: Continental highway networks connecting major cities
-- **Railway Systems**: High-speed rail connecting economic hubs
-- **Ports and Airports**: Modernizing logistics and trade facilitation
-- **Urban Transit**: Metro systems for rapidly growing cities
-
-### Energy Infrastructure
-- **Renewable Energy**: Solar and wind farms across the continent
-- **Grid Modernization**: Smart grid technology implementation
-- **Off-grid Solutions**: Decentralized energy for rural communities
-- **Energy Storage**: Battery technology and pumped hydro storage
-
-### Digital Infrastructure
-- **5G Networks**: Next-generation connectivity infrastructure
-- **Data Centers**: Cloud computing and digital transformation
-- **Fiber Optic Networks**: High-speed internet backbone
-- **Fintech Infrastructure**: Digital payment and banking systems
-
-## Market Opportunities
-
-The African Development Bank estimates that Africa needs $130-170 billion annually in infrastructure investment. This massive funding gap creates opportunities for:
-
-- **Public-Private Partnerships (PPPs)**
-- **Green bonds and sustainable financing**
-- **Technology transfer and innovation**
-- **Local capacity building and job creation**
-
-## Investment Returns
-
-Infrastructure investments in Africa typically offer:
-- **Long-term stable returns** (8-12% annually)
-- **Inflation protection** through indexed contracts
-- **Currency diversification** across multiple African markets
-- **ESG compliance** with sustainable development goals
-
-The key to success lies in partnering with experienced local operators and understanding regulatory frameworks across different African markets.`,
-    excerpt: "Exploring the most promising infrastructure investment opportunities across Africa's rapidly developing markets.",
-    author: "Michael Okoye",
-    publishedAt: "2024-01-20T09:00:00Z",
-    updatedAt: "2024-01-20T09:00:00Z",
-    tags: ["business", "investment", "infrastructure", "africa"],
-    featured: true,
-    readingTime: 8,
-    featuredImage: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80",
-    imageAlt: "Modern African city skyline with construction cranes"
-  }
-];
-
-const isDemoMode = () => !process.env.DATABASE_URL;
+const isDemoMode = () => {
+  const hasDb = !!process.env.DATABASE_URL;
+  console.log('Environment check - DATABASE_URL exists:', hasDb);
+  console.log('Demo mode result:', !hasDb);
+  return !hasDb;
+};
 
 // GET /api/blog/[id] - Get single blog post
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function GET(request: NextRequest) {
   try {
-    const { id } = params;
+    console.log('=== Individual Post Route Debug ===');
+    console.log('Request URL:', request.url);
     
-    if (!id) {
+    // Extract ID from URL path
+    const url = new URL(request.url);
+    console.log('URL pathname:', url.pathname);
+    
+    const pathSegments = url.pathname.split('/');
+    console.log('Path segments:', pathSegments);
+    
+    const id = pathSegments[pathSegments.length - 1];
+    console.log('Extracted ID:', id);
+    
+    if (!id || id === '') {
+      console.log('No ID provided');
       return NextResponse.json(
         { error: 'Blog post ID is required' },
         { status: 400 }
       );
     }
 
-    let post;
+    console.log('Demo mode:', isDemoMode());
     
     if (isDemoMode()) {
-      post = demoBlogs.find(p => p.id === id);
+      console.log('Fetching from demo data...');
+      const post = getDemoPostById(id);
+      console.log('Found post:', !!post);
+      
+      if (!post) {
+        console.log('Post not found in demo data');
+        return NextResponse.json(
+          { error: 'Blog post not found' },
+          { status: 404 }
+        );
+      }
+
+      console.log('Returning post:', post.title);
+      return NextResponse.json({ post }, { status: 200 });
     } else {
-      post = await getBlogPostById(id);
-    }
-    
-    if (!post) {
+      console.log('Database mode not implemented yet');
       return NextResponse.json(
-        { error: 'Blog post not found' },
-        { status: 404 }
+        { error: 'Database mode not available' },
+        { status: 503 }
       );
     }
-
-    return NextResponse.json({ post }, { status: 200 });
   } catch (error) {
-    console.error(`Error in GET /api/blog/${params.id}:`, error);
+    console.error('=== ERROR in individual post route ===');
+    console.error('Error:', error);
+    console.error('Stack:', error.stack);
     return NextResponse.json(
-      { error: 'Failed to fetch blog post' },
+      { error: 'Internal server error', details: error.message },
       { status: 500 }
     );
   }
 }
 
 // PUT /api/blog/[id] - Update blog post
-export async function PUT(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function PUT(request: NextRequest) {
   try {
-    const { id } = params;
+    console.log('=== PUT Route Debug ===');
+    
+    const url = new URL(request.url);
+    const pathSegments = url.pathname.split('/');
+    const id = pathSegments[pathSegments.length - 1];
+    
+    console.log('Update ID:', id);
     
     if (!id) {
       return NextResponse.json(
@@ -190,41 +89,52 @@ export async function PUT(
       );
     }
 
-    if (isDemoMode()) {
-      return NextResponse.json(
-        { error: 'Cannot update posts in demo mode. Please configure a database.' },
-        { status: 503 }
-      );
-    }
-
     const body = await request.json();
-    
-    const updatedPost = await updateBlogPost(id, body);
-    
-    if (!updatedPost) {
-      return NextResponse.json(
-        { error: 'Blog post not found' },
-        { status: 404 }
-      );
+    console.log('Update data received');
+
+    if (isDemoMode()) {
+      const updates = {
+        ...body,
+        featuredImage: body.featuredImageUrl || body.featuredImage,
+        imageAlt: body.featuredImageAlt || body.imageAlt,
+        readingTime: body.content ? Math.ceil(body.content.split(' ').length / 200) : undefined
+      };
+
+      const updatedPost = updateDemoPost(id, updates);
+      
+      if (!updatedPost) {
+        return NextResponse.json(
+          { error: 'Blog post not found' },
+          { status: 404 }
+        );
+      }
+      
+      return NextResponse.json({ post: updatedPost }, { status: 200 });
     }
 
-    return NextResponse.json({ post: updatedPost }, { status: 200 });
-  } catch (error) {
-    console.error(`Error in PUT /api/blog/${params.id}:`, error);
     return NextResponse.json(
-      { error: 'Failed to update blog post' },
+      { error: 'Database mode not available' },
+      { status: 503 }
+    );
+  } catch (error) {
+    console.error('Error in PUT:', error);
+    return NextResponse.json(
+      { error: 'Failed to update blog post', details: error.message },
       { status: 500 }
     );
   }
 }
 
 // DELETE /api/blog/[id] - Delete blog post
-export async function DELETE(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function DELETE(request: NextRequest) {
   try {
-    const { id } = params;
+    console.log('=== DELETE Route Debug ===');
+    
+    const url = new URL(request.url);
+    const pathSegments = url.pathname.split('/');
+    const id = pathSegments[pathSegments.length - 1];
+    
+    console.log('Delete ID:', id);
     
     if (!id) {
       return NextResponse.json(
@@ -234,29 +144,29 @@ export async function DELETE(
     }
 
     if (isDemoMode()) {
+      const deleted = deleteDemoPost(id);
+      
+      if (!deleted) {
+        return NextResponse.json(
+          { error: 'Blog post not found' },
+          { status: 404 }
+        );
+      }
+      
       return NextResponse.json(
-        { error: 'Cannot delete posts in demo mode. Please configure a database.' },
-        { status: 503 }
-      );
-    }
-
-    const deleted = await deleteBlogPost(id);
-    
-    if (!deleted) {
-      return NextResponse.json(
-        { error: 'Blog post not found' },
-        { status: 404 }
+        { message: 'Blog post deleted successfully' },
+        { status: 200 }
       );
     }
 
     return NextResponse.json(
-      { message: 'Blog post deleted successfully' },
-      { status: 200 }
+      { error: 'Database mode not available' },
+      { status: 503 }
     );
   } catch (error) {
-    console.error(`Error in DELETE /api/blog/${params.id}:`, error);
+    console.error('Error in DELETE:', error);
     return NextResponse.json(
-      { error: 'Failed to delete blog post' },
+      { error: 'Failed to delete blog post', details: error.message },
       { status: 500 }
     );
   }
