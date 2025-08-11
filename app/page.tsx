@@ -422,15 +422,19 @@ export default function HomePage() {
                     />
                   </div>
 
-                  {/* Subtle gradient overlay for better text readability */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent"></div>
+                  {/* Enhanced gradient overlay for better text readability */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
                   
                   {/* Text Overlay */}
                   <div className="absolute inset-0 flex flex-col justify-end p-6 z-10">
                     <div className="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                      <h3 className="text-2xl font-bold text-white mb-3 tracking-wide drop-shadow-lg text-shadow-lg">
-                        {service.title}
-                      </h3>
+                      <div className="bg-black/40 backdrop-blur-sm rounded-lg px-4 py-2 inline-block">
+                        <h3 className="text-2xl font-bold text-white mb-0 tracking-wide drop-shadow-2xl" style={{
+                          textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0px 0px 8px rgba(0,0,0,0.6)'
+                        }}>
+                          {service.title}
+                        </h3>
+                      </div>
                     </div>
                     
                     {/* Hover indicator */}

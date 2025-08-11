@@ -20,6 +20,23 @@ export function calculateReadingTime(content: string): number {
 
 // Convert database row to BlogPost
 function dbRowToBlogPost(row: any): BlogPost {
+  // Handle tags properly - PostgreSQL returns arrays as strings sometimes
+  let tags: string[] = [];
+  if (row.tags) {
+    if (Array.isArray(row.tags)) {
+      tags = row.tags;
+    } else if (typeof row.tags === 'string') {
+      // Handle case where tags come as a string (either JSON array or space-separated)
+      try {
+        // Try parsing as JSON array first
+        tags = JSON.parse(row.tags);
+      } catch {
+        // If not JSON, split by spaces or commas
+        tags = row.tags.split(/[\s,]+/).filter(tag => tag.trim().length > 0);
+      }
+    }
+  }
+
   return {
     id: row.id.toString(),
     title: row.title,
@@ -28,7 +45,7 @@ function dbRowToBlogPost(row: any): BlogPost {
     author: row.author,
     publishedAt: row.published_at.toISOString(),
     updatedAt: row.updated_at.toISOString(),
-    tags: row.tags || [],
+    tags: tags,
     featured: row.featured,
     readingTime: row.reading_time,
     featuredImage: row.featured_image_url,

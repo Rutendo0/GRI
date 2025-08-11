@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { BlogPost as BlogPostType } from "@/lib/types/blog";
@@ -159,6 +159,12 @@ export default function BlogPostPage() {
     });
   };
 
+  // Memoize formatted content to improve performance
+  const formattedContent = useMemo(() => {
+    if (!post?.content) return null;
+    return formatContent(post.content);
+  }, [post?.content]);
+
   if (loading) {
     return (
       <div className="min-h-screen bg-background">
@@ -299,7 +305,7 @@ export default function BlogPostPage() {
 
           {/* Article Body */}
           <div className="prose prose-lg prose-slate max-w-none">
-            {formatContent(post.content)}
+            {formattedContent}
           </div>
 
           {/* Article Footer */}

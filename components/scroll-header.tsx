@@ -50,7 +50,7 @@ export function ScrollHeader() {
                   priority
                 />
               </div>
-              <span className="font-bold text-xl sm:text-2xl text-white">
+              <span className="font-bold text-xl sm:text-2xl text-white drop-shadow-sm">
                 GRI
               </span>
             </Link>
@@ -85,7 +85,7 @@ export function ScrollHeader() {
                   priority
                 />
               </div>
-              <span className={`font-bold text-xl sm:text-2xl transition-colors duration-300 ${isScrolled ? "text-slate-900" : "text-white"}`}>
+              <span className={`font-bold text-xl sm:text-2xl transition-colors duration-300 ${isScrolled ? "text-slate-900" : "text-white drop-shadow-sm"}`}>
                 GRI
               </span>
             </Link>
@@ -94,39 +94,43 @@ export function ScrollHeader() {
             <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8">
               <Link
                 href="/"
-                className={`font-medium text-sm xl:text-base transition-all duration-200 hover:text-blue-600 hover:scale-105 ${
-                  isScrolled ? "text-slate-700" : "text-blue-950"
+                className={`font-medium text-sm xl:text-base transition-all duration-200 hover:text-blue-400 hover:scale-105 ${
+                  isScrolled ? "text-slate-700 hover:text-blue-600" : "text-white drop-shadow-sm"
                 }`}
               >
                 Home
               </Link>
               <Link
                 href="/about"
-                className={`font-medium text-sm xl:text-base transition-all duration-200 hover:text-blue-600 hover:scale-105 ${
-                  isScrolled ? "text-slate-700" : "text-blue-950"
+                className={`font-medium text-sm xl:text-base transition-all duration-200 hover:text-blue-400 hover:scale-105 ${
+                  isScrolled ? "text-slate-700 hover:text-blue-600" : "text-white drop-shadow-sm"
                 }`}
               >
                 About
               </Link>
               <Link
                 href="/services"
-                className={`font-medium text-sm xl:text-base transition-all duration-200 hover:text-blue-600 hover:scale-105 ${
-                  isScrolled ? "text-slate-700" : "text-blue-950"
+                className={`font-medium text-sm xl:text-base transition-all duration-200 hover:text-blue-400 hover:scale-105 ${
+                  isScrolled ? "text-slate-700 hover:text-blue-600" : "text-white drop-shadow-sm"
                 }`}
               >
                 Services
               </Link>
               <Link
                 href="/blog"
-                className={`font-medium text-sm xl:text-base transition-all duration-200 hover:text-blue-600 hover:scale-105 ${
-                  isScrolled ? "text-slate-700" : "text-blue-950"
+                className={`font-medium text-sm xl:text-base transition-all duration-200 hover:text-blue-400 hover:scale-105 ${
+                  isScrolled ? "text-slate-700 hover:text-blue-600" : "text-white drop-shadow-sm"
                 }`}
               >
                 Blog
               </Link>
               <Link
                 href="/contact"
-                className="bg-blue-600 text-blue-950 px-4 xl:px-6 py-2 xl:py-2.5 rounded-full text-sm xl:text-base font-medium hover:bg-blue-700 transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl"
+                className={`px-4 xl:px-6 py-2 xl:py-2.5 rounded-full text-sm xl:text-base font-medium transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl ${
+                  isScrolled 
+                    ? "bg-blue-600 text-white hover:bg-blue-700" 
+                    : "bg-white text-blue-600 hover:bg-blue-50"
+                }`}
               >
                 Contact
               </Link>

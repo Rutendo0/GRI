@@ -23,22 +23,43 @@ export function SystemStatus() {
     const checkStatus = async () => {
       try {
         const response = await fetch('/api/blog');
+        
+        if (!response.ok) {
+          // If API fails, check if it's a database connection issue
+          const errorData = await response.json().catch(() => ({}));
+          if (response.status === 500) {
+            setStatus({
+              mode: 'unknown',
+              database: false,
+              imageStorage: 'Not configured',
+              features: ['Database Setup Required']
+            });
+            return;
+          }
+        }
+        
         const data = await response.json();
         
-        // Determine mode based on response characteristics
-        const hasDatabase = !data.posts.some((post: any) => post.id.startsWith('demo-'));
+        // Check if we have any posts and if they're from database
+        const hasPosts = data.posts && data.posts.length > 0;
+        const hasDatabase = hasPosts && !data.posts.some((post: any) => post.id.startsWith('demo-'));
         
         setStatus({
-          mode: hasDatabase ? 'production' : 'demo',
-          database: hasDatabase,
-          imageStorage: hasDatabase ? 'Vercel Blob + Base64 fallback' : 'Base64 inline',
-          features: hasDatabase 
+          mode: hasDatabase ? 'production' : (hasPosts ? 'demo' : 'production'),
+          database: hasDatabase || !hasPosts, // If no posts, assume database is connected but empty
+          imageStorage: hasDatabase || !hasPosts ? 'Vercel Blob + Base64 fallback' : 'Base64 inline',
+          features: hasDatabase || !hasPosts
             ? ['Persistent Storage', 'Advanced Search', 'Performance Optimized', 'Multi-user Support']
             : ['Session Storage', 'Full Functionality', 'No Setup Required', 'Quick Start']
         });
       } catch (error) {
         console.error('Status check failed:', error);
-        setStatus(prev => ({ ...prev, mode: 'unknown' }));
+        setStatus({
+          mode: 'unknown',
+          database: false,
+          imageStorage: 'Not configured',
+          features: ['Database Setup Required']
+        });
       }
     };
 
@@ -111,6 +132,14 @@ export function SystemStatus() {
             <div className="mt-2 p-2 bg-green-50 rounded text-xs">
               <p className="text-green-700">
                 <strong>Production Mode:</strong> Database connected with persistent storage.
+              </p>
+            </div>
+          )}
+          
+          {status.mode === 'unknown' && (
+            <div className="mt-2 p-2 bg-yellow-50 rounded text-xs">
+              <p className="text-yellow-700">
+                <strong>Setup Required:</strong> Configure DATABASE_URL in .env.local to connect PostgreSQL database.
               </p>
             </div>
           )}

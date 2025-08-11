@@ -1,18 +1,9 @@
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getAllBlogPosts, createBlogPost, initializeDatabase } from '@/lib/services/blog';
-import { 
-  getAllDemoPosts, 
-  addDemoPost, 
-  searchDemoPosts, 
-  getDemoPostsByTag, 
-  getFeaturedDemoPosts 
-} from '@/lib/services/demo-data';
+import { getAllBlogPosts, createBlogPost, initializeDatabase, searchBlogPosts, getBlogPostsByTag, getFeaturedBlogPosts } from '@/lib/services/blog';
 
-// Old demo data removed - now using centralized demo-data.ts
 // Initialize database on first load
 let dbInitialized = false;
-let demoMode = false;
 
 async function ensureDbInitialized() {
   if (!dbInitialized) {
@@ -21,9 +12,8 @@ async function ensureDbInitialized() {
       dbInitialized = true;
       console.log('Database initialized successfully');
     } catch (error) {
-      console.warn('Database not available, using demo mode:', error);
-      demoMode = true;
-      dbInitialized = true;
+      console.error('Database initialization failed:', error);
+      throw error;
     }
   }
 }
@@ -41,31 +31,15 @@ export async function GET(request: NextRequest) {
 
     let posts;
     
-    if (demoMode) {
-      // Use centralized demo data functions
-      if (searchTerm) {
-        posts = searchDemoPosts(searchTerm);
-      } else if (tag) {
-        posts = getDemoPostsByTag(tag);
-      } else if (featured) {
-        posts = getFeaturedDemoPosts();
-      } else {
-        posts = getAllDemoPosts();
-      }
+    // Always use database
+    if (searchTerm) {
+      posts = await searchBlogPosts(searchTerm);
+    } else if (tag) {
+      posts = await getBlogPostsByTag(tag);
+    } else if (featured) {
+      posts = await getFeaturedBlogPosts();
     } else {
-      // Use database
-      if (searchTerm) {
-        const { searchBlogPosts } = await import('@/lib/services/blog');
-        posts = await searchBlogPosts(searchTerm);
-      } else if (tag) {
-        const { getBlogPostsByTag } = await import('@/lib/services/blog');
-        posts = await getBlogPostsByTag(tag);
-      } else if (featured) {
-        const { getFeaturedBlogPosts } = await import('@/lib/services/blog');
-        posts = await getFeaturedBlogPosts();
-      } else {
-        posts = await getAllBlogPosts(includeUnpublished);
-      }
+      posts = await getAllBlogPosts(includeUnpublished);
     }
 
     return NextResponse.json({ posts }, { status: 200 });
@@ -94,29 +68,6 @@ export async function POST(request: NextRequest) {
           { status: 400 }
         );
       }
-    }
-
-    if (demoMode) {
-      // Create post in demo mode using centralized storage
-      const newPost = {
-        id: `demo-${Date.now()}`,
-        title: body.title,
-        content: body.content,
-        excerpt: body.excerpt,
-        author: body.author,
-        tags: body.tags || [],
-        featured: body.featured || false,
-        featuredImage: body.featuredImageUrl || body.featuredImage,
-        imageAlt: body.featuredImageAlt || body.imageAlt,
-        publishedAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-        readingTime: Math.ceil(body.content.split(' ').length / 200) // Estimate reading time
-      };
-
-      // Add to centralized demo data
-      const savedPost = addDemoPost(newPost);
-      
-      return NextResponse.json({ post: savedPost }, { status: 201 });
     }
 
     const postData = {
