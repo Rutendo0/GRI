@@ -94,14 +94,14 @@ export function BlogPostCard({
           </div>
         )}
         
-        <CardHeader className="pb-3 space-y-3">
+        <CardHeader className="pb-3 space-y-3 p-4 sm:p-6">
           {!post.featuredImage && (
-            <div className="flex items-center gap-2 mb-2">
-              <Badge className={`${getCategoryColor(category)} border-0 font-medium`}>
+            <div className="flex flex-wrap items-center gap-2 mb-2">
+              <Badge className={`${getCategoryColor(category)} border-0 font-medium text-xs`}>
                 {category}
               </Badge>
               {post.featured && (
-                <Badge className="bg-yellow-500 text-yellow-900 hover:bg-yellow-500">
+                <Badge className="bg-yellow-500 text-yellow-900 hover:bg-yellow-500 text-xs">
                   <Star className="w-3 h-3 mr-1" />
                   Featured
                 </Badge>
@@ -109,18 +109,18 @@ export function BlogPostCard({
             </div>
           )}
           
-          <CardTitle className="text-xl font-bold group-hover:text-primary transition-colors leading-tight line-clamp-2">
+          <CardTitle className="text-lg sm:text-xl font-bold group-hover:text-primary transition-colors leading-tight line-clamp-2">
             {post.title}
           </CardTitle>
           
-          <div className="flex items-center text-sm text-muted-foreground gap-4">
+          <div className="flex flex-col sm:flex-row sm:items-center text-sm text-muted-foreground gap-2 sm:gap-4">
             <div className="flex items-center gap-1">
               <Calendar className="w-4 h-4" />
-              <span>{formatDate(post.publishedAt)}</span>
+              <span className="text-xs sm:text-sm">{formatDate(post.publishedAt)}</span>
             </div>
             <div className="flex items-center gap-1">
               <Clock className="w-4 h-4" />
-              <span>{post.readingTime} min read</span>
+              <span className="text-xs sm:text-sm">{post.readingTime} min read</span>
             </div>
           </div>
           
@@ -160,8 +160,8 @@ export function BlogPostCard({
           )}
         </CardHeader>
         
-        <CardContent className="pt-0 space-y-4">
-          <p className="text-muted-foreground line-clamp-3 leading-relaxed">
+        <CardContent className="pt-0 space-y-4 p-4 sm:p-6">
+          <p className="text-muted-foreground line-clamp-3 leading-relaxed text-sm sm:text-base">
             {post.excerpt}
           </p>
           
@@ -178,11 +178,11 @@ export function BlogPostCard({
             )}
           </div>
           
-          <div className="flex items-center justify-between pt-2 border-t border-border/50">
-            <p className="text-sm text-muted-foreground">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-2 border-t border-border/50">
+            <p className="text-xs sm:text-sm text-muted-foreground">
               by <span className="font-semibold text-foreground">{post.author}</span>
             </p>
-            <div className="text-xs text-muted-foreground group-hover:text-primary transition-colors">
+            <div className="text-xs text-muted-foreground group-hover:text-primary transition-colors self-end sm:self-auto">
               Read more →
             </div>
           </div>

@@ -248,7 +248,7 @@ export default function BlogPage() {
       <ScrollHeader />
       
       {/* Hero Section with Background Image */}
-      <section className="relative h-[60vh] min-h-[600px] flex items-center justify-center overflow-hidden">
+      <section className="relative h-[60vh] min-h-[500px] sm:min-h-[600px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <Image
             src="/blog.jfif"
@@ -263,51 +263,51 @@ export default function BlogPage() {
         </div>
         
         <div className="container mx-auto px-4 relative z-10">
-          <div className="flex justify-between items-start mb-12">
-            <div className="text-white">
-              <div className="flex items-center gap-2 mb-6">
-                <BookOpen className="w-8 h-8 text-white" />
-                <span className="text-white font-medium text-lg">GRI Blog</span>
+          <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-6 mb-8 lg:mb-12">
+            <div className="text-white flex-1">
+              <div className="flex items-center gap-2 mb-4 lg:mb-6">
+                <BookOpen className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
+                <span className="text-white font-medium text-base sm:text-lg">GRI Blog</span>
               </div>
               
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-white mb-6 drop-shadow-lg">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-white mb-4 lg:mb-6 drop-shadow-lg">
                 Insights & Innovation
               </h1>
               
-              <p className="text-xl md:text-2xl text-white/90 max-w-3xl leading-relaxed drop-shadow-md">
-                {isAdmin ? "Share insights on business opportunities, career development, industry news, and technological innovations shaping Africa's future. Built for professionals and thought leaders." : "Stay informed with the latest business opportunities, career insights, industry news, and technological innovations driving Africa's economic transformation."}
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 max-w-3xl leading-relaxed drop-shadow-md">
+                {isAdmin ? "Share insights on business opportunities, career development, industry news, and technological innovations shaping Africa's future." : "Stay informed with the latest business opportunities, career insights, industry news, and technological innovations driving Africa's economic transformation."}
               </p>
             </div>
             
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-2">
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-2 self-start lg:self-auto">
               <AdminToggle />
             </div>
           </div>
 
           {/* Quick Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="text-center bg-white/10 backdrop-blur-sm rounded-lg p-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-6">
+            <div className="text-center bg-white/10 backdrop-blur-sm rounded-lg p-4 lg:p-6">
               <div className="flex items-center justify-center mb-2">
-                <BookOpen className="w-6 h-6 text-white" />
+                <BookOpen className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
               </div>
-              <div className="text-2xl font-bold text-white">{posts.length}</div>
-              <div className="text-sm text-white/80">Total Posts</div>
+              <div className="text-xl lg:text-2xl font-bold text-white">{posts.length}</div>
+              <div className="text-xs sm:text-sm text-white/80">Total Posts</div>
             </div>
             
-            <div className="text-center bg-white/10 backdrop-blur-sm rounded-lg p-6">
+            <div className="text-center bg-white/10 backdrop-blur-sm rounded-lg p-4 lg:p-6">
               <div className="flex items-center justify-center mb-2">
-                <Sparkles className="w-6 h-6 text-white" />
+                <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
               </div>
-              <div className="text-2xl font-bold text-white">{featuredPosts.length}</div>
-              <div className="text-sm text-white/80">Featured</div>
+              <div className="text-xl lg:text-2xl font-bold text-white">{featuredPosts.length}</div>
+              <div className="text-xs sm:text-sm text-white/80">Featured</div>
             </div>
             
-            <div className="text-center bg-white/10 backdrop-blur-sm rounded-lg p-6">
+            <div className="text-center bg-white/10 backdrop-blur-sm rounded-lg p-4 lg:p-6">
               <div className="flex items-center justify-center mb-2">
-                <Users className="w-6 h-6 text-white" />
+                <Users className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
               </div>
-              <div className="text-2xl font-bold text-white">{allTags.length}</div>
-              <div className="text-sm text-white/80">Topics</div>
+              <div className="text-xl lg:text-2xl font-bold text-white">{allTags.length}</div>
+              <div className="text-xs sm:text-sm text-white/80">Topics</div>
             </div>
           </div>
         </div>
@@ -424,7 +424,7 @@ export default function BlogPage() {
               )}
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {filteredPosts.map((post) => (
                 <BlogPostCard
                   key={post.id}

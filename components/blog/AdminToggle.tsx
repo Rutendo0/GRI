@@ -55,16 +55,27 @@ export function AdminToggle() {
   if (isAdmin) {
     return (
       <div className="space-y-3">
-        <div className="flex items-center gap-2">
-          <Badge variant="destructive" className="flex items-center gap-1">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
+          <Badge variant="destructive" className="flex items-center gap-1 whitespace-nowrap">
             <Shield className="w-3 h-3" />
             Admin Mode
           </Badge>
-          <Button variant="outline" size="sm" onClick={handleAdminLogout}>
+          <Button 
+            variant="outline" 
+            size="sm" 
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              handleAdminLogout();
+            }}
+            className="bg-white/20 hover:bg-white/30 text-white border-white/30 hover:border-white/50 backdrop-blur-sm"
+          >
             Exit Admin
           </Button>
         </div>
-        <SystemStatus />
+        <div className="hidden sm:block">
+          <SystemStatus />
+        </div>
       </div>
     );
   }
