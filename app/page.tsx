@@ -28,7 +28,7 @@ const ScrollProgress = dynamic(() => import("@/components/scroll-progress"), { s
 const ParallaxSection = dynamic(() => import("@/components/parallax-section"))
 const FloatingActionButton = dynamic(() => import("@/components/floating-action-button").then(mod => ({ default: mod.FloatingActionButton })), { ssr: false })
 const ProgressIndicator = dynamic(() => import("@/components/progress-indicator"), { ssr: false })
-const SmoothScrollLink = dynamic(() => import("@/components/smooth-scroll-link"), { ssr: false }  )
+const SmoothScrollLink = dynamic(() => import("@/components/smooth-scroll-link").then(mod => ({ default: mod.SmoothScrollLink })), { ssr: false })
 const TradingViewWidget = dynamic(() => import("@/components/trading-view-widget").then(mod => ({ default: mod.TradingViewWidget })), { ssr: false })
 
 export default function HomePage() {
@@ -426,7 +426,7 @@ export default function HomePage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent"></div>
                   
                   {/* Text Overlay */}
-                  <div className="absolute inset-0 flex flex-col justify-end p-6 relative z-10">
+                  <div className="absolute inset-0 flex flex-col justify-end p-6 z-10">
                     <div className="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
                       <h3 className="text-2xl font-bold text-white mb-3 tracking-wide drop-shadow-lg text-shadow-lg">
                         {service.title}

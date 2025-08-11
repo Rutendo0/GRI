@@ -3,8 +3,7 @@
 import type React from "react"
 
 import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import type { ButtonProps } from "@/components/ui/button"
+import { Button, type ButtonProps } from "@/components/ui/button"
 
 interface EnhancedButtonProps extends ButtonProps {
   ripple?: boolean
@@ -15,6 +14,9 @@ interface EnhancedButtonProps extends ButtonProps {
 export function EnhancedButton({
   children,
   className = "",
+  variant,
+  size,
+  asChild = false,
   ripple = true,
   glow = false,
   magneticEffect = false,
@@ -42,6 +44,9 @@ export function EnhancedButton({
 
   return (
     <Button
+      variant={variant}
+      size={size}
+      asChild={asChild}
       className={`
         relative overflow-hidden transition-all duration-300 transform
         ${glow ? "shadow-lg hover:shadow-2xl hover:shadow-blue-500/25" : ""}

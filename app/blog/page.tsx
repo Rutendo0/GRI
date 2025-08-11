@@ -780,7 +780,7 @@ export default function BlogPage() {
 
           {/* Quick Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white/20 backdrop-blur-sm rounded-lg p-6 text-center border border-white/20">
+            <div className="text-center bg-white/10 backdrop-blur-sm rounded-lg p-6">
               <div className="flex items-center justify-center mb-2">
                 <BookOpen className="w-6 h-6 text-white" />
               </div>
@@ -788,7 +788,7 @@ export default function BlogPage() {
               <div className="text-sm text-white/80">Total Posts</div>
             </div>
             
-            <div className="bg-white/20 backdrop-blur-sm rounded-lg p-6 text-center border border-white/20">
+            <div className="text-center bg-white/10 backdrop-blur-sm rounded-lg p-6">
               <div className="flex items-center justify-center mb-2">
                 <Sparkles className="w-6 h-6 text-white" />
               </div>
@@ -796,7 +796,7 @@ export default function BlogPage() {
               <div className="text-sm text-white/80">Featured</div>
             </div>
             
-            <div className="bg-white/20 backdrop-blur-sm rounded-lg p-6 text-center border border-white/20">
+            <div className="text-center bg-white/10 backdrop-blur-sm rounded-lg p-6">
               <div className="flex items-center justify-center mb-2">
                 <Zap className="w-6 h-6 text-white" />
               </div>
