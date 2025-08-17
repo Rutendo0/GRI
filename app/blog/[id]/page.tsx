@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, type ReactNode } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { BlogPost as BlogPostType } from "@/lib/types/blog";
@@ -72,91 +72,166 @@ export default function BlogPostPage() {
 
   const formatContent = (content: string) => {
     const lines = content.split("\n");
-    return lines.map((line, index) => {
+    const elements: ReactNode[] = [];
+    let i = 0;
+
+    const applyInlineFormatting = (text: string) =>
+      text
+        .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-slate-900">$1</strong>')
+        .replace(/\*(.*?)\*/g, '<em class="italic">$1</em>')
+        .replace(/`(.*?)`/g, '<code class="bg-gray-100 px-1 py-0.5 rounded text-sm">$1</code>');
+
+    while (i < lines.length) {
+      const line = lines[i];
       const trimmedLine = line.trim();
-      
-      // Handle headings
+
+      // Empty line -> paragraph break
+      if (trimmedLine === "") {
+        elements.push(<br key={`br-${i}`} />);
+        i++;
+        continue;
+      }
+
+      // Headings
       if (line.startsWith("# ")) {
-        return (
-          <h1 key={index} className="text-4xl font-bold mb-6 mt-8 text-slate-900">
-            {line.slice(2)}
-          </h1>
+        elements.push(
+          <h1 key={`h1-${i}`} className="text-4xl font-bold mb-6 mt-8 text-slate-900">{line.slice(2)}</h1>
         );
+        i++;
+        continue;
       }
       if (line.startsWith("## ")) {
-        return (
-          <h2 key={index} className="text-3xl font-semibold mb-4 mt-8 text-slate-800">
-            {line.slice(3)}
-          </h2>
+        elements.push(
+          <h2 key={`h2-${i}`} className="text-3xl font-semibold mb-4 mt-8 text-slate-800">{line.slice(3)}</h2>
         );
+        i++;
+        continue;
       }
       if (line.startsWith("### ")) {
-        return (
-          <h3 key={index} className="text-2xl font-medium mb-3 mt-6 text-slate-700">
-            {line.slice(4)}
-          </h3>
+        elements.push(
+          <h3 key={`h3-${i}`} className="text-2xl font-medium mb-3 mt-6 text-slate-700">{line.slice(4)}</h3>
         );
+        i++;
+        continue;
       }
-      
-      // Handle lists
+
+      // Tables (GitHub-flavored Markdown)
+      if (
+        line.trim().startsWith("|") &&
+        i + 1 < lines.length &&
+        /^(\s*\|?\s*:?-{3,}:?\s*\|)+\s*:?-{3,}:?\s*\|?\s*$/.test(lines[i + 1])
+      ) {
+        const headerCells = line
+          .split("|")
+          .slice(1, -1)
+          .map((s) => s.trim());
+        const alignSpec = lines[i + 1]
+          .split("|")
+          .slice(1, -1)
+          .map((s) => {
+            const t = s.trim();
+            if (t.startsWith(":") && t.endsWith(":")) return "center";
+            if (t.endsWith(":")) return "right";
+            return "left";
+          });
+
+        const rows: string[][] = [];
+        i += 2; // skip header and separator
+        while (i < lines.length && lines[i].trim().startsWith("|")) {
+          const cells = lines[i]
+            .split("|")
+            .slice(1, -1)
+            .map((s) => s.trim());
+          rows.push(cells);
+          i++;
+        }
+
+        elements.push(
+          <div key={`table-wrap-${i}`} className="my-6 overflow-x-auto">
+            <table className="w-full border-collapse">
+              <thead>
+                <tr>
+                  {headerCells.map((h, idx) => (
+                    <th
+                      key={`th-${idx}`}
+                      className="border border-gray-200 bg-gray-50 px-3 py-2 text-sm font-semibold text-slate-700"
+                      style={{ textAlign: alignSpec[idx] as any }}
+                    >
+                      {h}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {rows.map((r, rIdx) => (
+                  <tr key={`tr-${rIdx}`} className="odd:bg-white even:bg-gray-50">
+                    {r.map((c, cIdx) => (
+                      <td
+                        key={`td-${rIdx}-${cIdx}`}
+                        className="border border-gray-200 px-3 py-2 text-sm text-slate-700"
+                        style={{ textAlign: alignSpec[cIdx] as any }}
+                      >
+                        {c}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        );
+        continue;
+      }
+
+      // Group bullet lists
       if (line.startsWith("- ")) {
-        return (
-          <li key={index} className="ml-6 mb-2 text-slate-700 list-disc">
-            {line.slice(2)}
-          </li>
+        const items: string[] = [];
+        while (i < lines.length && lines[i].startsWith("- ")) {
+          items.push(lines[i].slice(2));
+          i++;
+        }
+        elements.push(
+          <ul key={`ul-${i}`} className="list-disc ml-6 mb-4 text-slate-700">
+            {items.map((it, idx) => (
+              <li key={`li-${idx}`} className="mb-2">
+                {it}
+              </li>
+            ))}
+          </ul>
         );
+        continue;
       }
-      
-      // Handle empty lines
-      if (trimmedLine === "") {
-        return <br key={index} />;
-      }
-      
-      // Handle images first - check if line contains image markdown
-      if (line.includes('![') && line.includes('](')) {
+
+      // Images (inline)
+      if (line.includes("![") && line.includes("](")) {
         const imageFormatted = line.replace(
           /!\[([^\]]*)\]\(([^)]+)\)/g,
           '<img src="$2" alt="$1" class="max-w-full h-auto rounded-lg shadow-lg my-6 mx-auto block" style="max-height: 500px; object-fit: contain; border: 1px solid #e5e7eb;" />'
         );
-        return (
+        elements.push(
           <div
-            key={index}
+            key={`img-${i}`}
             className="mb-8 text-center bg-gray-50 p-4 rounded-lg"
             dangerouslySetInnerHTML={{ __html: imageFormatted }}
           />
         );
+        i++;
+        continue;
       }
 
-      // Handle bold text and other formatting, but NOT images
-      let formatted = line
-        .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-slate-900">$1</strong>')
-        .replace(/\*(.*?)\*/g, '<em class="italic">$1</em>')
-        .replace(/`(.*?)`/g, '<code class="bg-gray-100 px-1 py-0.5 rounded text-sm">$1</code>');
-      
-      // If this line still contains image markdown after processing, it means it wasn't caught above
-      // Let's handle it here as a fallback
-      if (formatted.includes('![') && formatted.includes('](')) {
-        formatted = formatted.replace(
-          /!\[([^\]]*)\]\(([^)]+)\)/g,
-          '<img src="$2" alt="$1" class="max-w-full h-auto rounded-lg shadow-lg my-6 mx-auto block" style="max-height: 500px; object-fit: contain; border: 1px solid #e5e7eb;" />'
-        );
-        return (
-          <div
-            key={index}
-            className="mb-8 text-center bg-gray-50 p-4 rounded-lg"
-            dangerouslySetInnerHTML={{ __html: formatted }}
-          />
-        );
-      }
-      
-      return (
+      // Paragraph with inline formatting
+      const formatted = applyInlineFormatting(line);
+      elements.push(
         <p
-          key={index}
+          key={`p-${i}`}
           className="mb-4 text-slate-700 leading-relaxed"
           dangerouslySetInnerHTML={{ __html: formatted }}
         />
       );
-    });
+      i++;
+    }
+
+    return elements;
   };
 
   // Memoize formatted content to improve performance
